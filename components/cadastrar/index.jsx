@@ -6,7 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 Parse.setAsyncStorage(AsyncStorage);
 Parse.initialize('yRspv6kXPp55Hl6mR2gJ841HRzusgPji2oR8v1OS','drRYqqOqnZ2gnL1Lyt49ivP4t9zGHnHhlIGInfA7');
 Parse.serverURL = 'https://parseapi.back4app.com/';
-
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Cadastrar() {
   const [nomeProduto, setNomeProduto] = useState('');
@@ -43,12 +44,14 @@ export default function Cadastrar() {
   // }
 
   async function cadastrarProduto() {
-    const produto = new Parse.Object('Produto');
-    produto.set('nome', nomeProduto);
-    produto.set('quantidade', parseInt(quantProduto, 10)); // Certifique-se de que seja um número inteiro
-    produto.set('valor', parseFloat(valorProduto.replace(',', '.'))); // Lida com números decimais
+    //const uuid = uuidv4();    
+    // console.log(uuid, produto);
     
     try {
+      const produto = new Parse.Object('Produto');
+      produto.set('nome', nomeProduto);
+      produto.set('quantidade', parseInt(quantProduto, 10)); // Certifique-se de que seja um número inteiro
+      produto.set('valor', parseFloat(valorProduto.replace(',', '.'))); // Lida com números decimais
       // Salva no Back4App Data Store
       await produto.save();
 
